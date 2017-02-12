@@ -7,13 +7,13 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-dataSet = ['trainG', 'devG', 'testG'] # pickleされているquestionデータの名前。train/dev/testがおすすめです。
-answer = pickle.load(open('answersG')) # pickleされているanswerデータの名前。
-vocaDic = pickle.load(open('wordG')) #　pickleされているvoca dictionaryデータの名前。
-revVocaDic = pickle.load(open('revWordG')) # pickleされているreversed voca dictionaryデータの名前。
+dataSet = ['train', 'dev', 'test'] # pickleされているquestionデータの名前。train/dev/testがおすすめです。
+answer = pickle.load(open('answers')) # pickleされているanswerデータの名前。
+vocaDic = pickle.load(open('word')) #　pickleされているvoca dictionaryデータの名前。
+revVocaDic = pickle.load(open('revWord')) # pickleされているreversed voca dictionaryデータの名前。
 
 targets = ['who', 'when', 'where']
-cand = {'who':'david', 'when':'1975', 'where':'jamaica'} # targetsに合わせて、自動的に置換する単語を入れてください。
+cand = {'who':'william', 'when':'1923', 'where':'florida'} # targetsに合わせて、自動的に置換する単語を入れてください。
 
 def process(target, targetNum):
     voca = {'unk'} # GloVeを使う場合、unknownトークンを処理するため、unkを初めから入れておきます。
@@ -36,8 +36,8 @@ def process(target, targetNum):
         b = 0 # boundaryは累積値、accumulate valueなので、それを計算するための変数を作っておきます。
 
         for q in question:
-#            if targetNum != q['question'][0]: # 下にありますが、targetNumはtargetのdictionary indexになります。
-#                continue # 特定のquetsion term, つまりwho, whereといったものだけのデータセットを作るためのif文です。
+            if targetNum != q['question'][0]: # 下にありますが、targetNumはtargetのdictionary indexになります。
+                continue # 特定のquetsion term, つまりwho, whereといったものだけのデータセットを作るためのif文です。
                 # このif文を削除することだけで、fullのデータセットが作れます。
 
             text = [] # 後で、ここに自然言語の原文が入ります。
