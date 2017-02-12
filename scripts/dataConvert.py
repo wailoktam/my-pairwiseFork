@@ -3,6 +3,7 @@
 import pickle
 import os
 import sys
+import shutil
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -18,7 +19,7 @@ cand = {'who':'william', 'when':'1923', 'where':'florida'} # targetsに合わせ
 def process(target, targetNum):
     voca = {'unk'} # GloVeを使う場合、unknownトークンを処理するため、unkを初めから入れておきます。
     # また、この変数はpairwiseで使われる辞典を作るために使われます。重複処理のためにsetを使います。
-
+    shutil.rmtree(target)
     os.mkdir(target) # targetの名前でわかるように、targetを名前にした新しいdirectoryを作ります。
 
     for data in dataSet:
