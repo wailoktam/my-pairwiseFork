@@ -10,11 +10,11 @@ sys.setdefaultencoding("utf-8")
 
 dataSet = ['train', 'dev', 'test'] # pickleされているquestionデータの名前。train/dev/testがおすすめです。
 answer = pickle.load(open('answers')) # pickleされているanswerデータの名前。
-vocaDic = pickle.load(open('word')) #　pickleされているvoca dictionaryデータの名前。
-revVocaDic = pickle.load(open('revWord')) # pickleされているreversed voca dictionaryデータの名前。
+vocaDic = pickle.load(open('voca')) #　pickleされているvoca dictionaryデータの名前。
+revVocaDic = pickle.load(open('revVoca')) # pickleされているreversed voca dictionaryデータの名前。
 
 targets = ['who', 'when', 'where']
-cand = {'who':'william', 'when':'1923', 'where':'florida'} # targetsに合わせて、自動的に置換する単語を入れてください。
+cand = {'who':'stenn', 'when':'1947-1956', 'where':'fussen'} # targetsに合わせて、自動的に置換する単語を入れてください。
 
 def process(target, targetNum):
     voca = {'unk'} # GloVeを使う場合、unknownトークンを処理するため、unkを初めから入れておきます。
