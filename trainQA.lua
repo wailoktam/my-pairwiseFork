@@ -35,7 +35,7 @@ end
 cmd = torch.CmdLine()
 cmd:text('Options')
 cmd:option('-dataset', 'TrecQA', 'dataset, can be TrecQA or WikiQA')
-cmd:option('-version', 'raw', 'the version of TrecQA dataset, can be raw and clean')
+cmd:option('-version', 'clean', 'the version of TrecQA dataset, can be raw and clean')
 cmd:text()
 opt = cmd:parse(arg)
 
@@ -97,18 +97,31 @@ if opt.dataset == 'TrecQA' then
   train_dir = data_dir .. 'train-all/'
   dev_dir = data_dir .. opt.version .. '-dev/'
   test_dir = data_dir .. opt.version .. '-test/'
+  whoTest_dir = data_dir .. opt.version .. '-whoTest/'
+  whenTest_dir = data_dir .. opt.version .. '-whenTest/'  
+  whereTest_dir = data_dir .. opt.version .. '-whereTest/'  
 elseif opt.dataset == 'WikiQA' then
   train_dir = data_dir .. 'train/'
   dev_dir = data_dir .. 'dev/'
   test_dir = data_dir .. 'test/'
+  whoTest_dir = data_dir .. opt.version .. '-whoTest/'
+  whenTest_dir = data_dir .. opt.version .. '-whenTest/'  
+  whereTest_dir = data_dir .. opt.version .. '-whereTest/'    
 end
 
 local train_dataset = similarityMeasure.read_relatedness_dataset(train_dir, vocab, taskD)
 local dev_dataset = similarityMeasure.read_relatedness_dataset(dev_dir, vocab, taskD)
 local test_dataset = similarityMeasure.read_relatedness_dataset(test_dir, vocab, taskD)
+local whoTest_dataset = similarityMeasure.read_relatedness_dataset(whoTest_dir, vocab, taskD)
+local whenTest_dataset = similarityMeasure.read_relatedness_dataset(whenTest_dir, vocab, taskD)
+local whereTest_dataset = similarityMeasure.read_relatedness_dataset(whereTest_dir, vocab, taskD)
 printf('train_dir: %s, num train = %d\n', train_dir, train_dataset.size)
 printf('dev_dir: %s, num dev   = %d\n', dev_dir, dev_dataset.size)
 printf('test_dir: %s, num test  = %d\n', test_dir, test_dataset.size)
+printf('whoTest_dir: %s, num test  = %d\n', whoTest_dir, whoTest_dataset.size)
+printf('whenTest_dir: %s, num test  = %d\n', whenTest_dir, whenTest_dataset.size)
+printf('whereTest_dir: %s, num test  = %d\n', whereTest_dir, whereTest_dataset.size)
+
 
 -- initialize model
 local model = model_class{
@@ -162,6 +175,21 @@ for i = 1, num_epochs do
     local test_map_score = map(test_predictions, test_dataset.labels, test_dataset.boundary, test_dataset.numrels)
     local test_mrr_score = mrr(test_predictions, test_dataset.labels, test_dataset.boundary, test_dataset.numrels)
     printf('-- test map score: %.4f, mrr score: %.4f\n', test_map_score, test_mrr_score)
+    
+    local whoTest_predictions = model:predict_dataset(whoTest_dataset)
+    local whoTest_map_score = map(whoTest_predictions, whoTest_dataset.labels, whoTest_dataset.boundary, whoTest_dataset.numrels)
+    local whoTest_mrr_score = mrr(whoTest_predictions, whoTest_dataset.labels, whoTest_dataset.boundary, whoTest_dataset.numrels)
+    printf('-- who test map score: %.4f, mrr score: %.4f\n', whoTest_map_score, whoTest_mrr_score)
+    
+    local whereTest_predictions = model:predict_dataset(whereTest_dataset)
+    local whereTest_map_score = map(whereTest_predictions, whereTest_dataset.labels, whereTest_dataset.boundary, whereTest_dataset.numrels)
+    local whereTest_mrr_score = mrr(whereTest_predictions, whereTest_dataset.labels, whereTest_dataset.boundary, whereTest_dataset.numrels)
+    printf('-- where test map score: %.4f, mrr score: %.4f\n', whereTest_map_score, whereTest_mrr_score)
+    
+    local whenTest_predictions = model:predict_dataset(whenTest_dataset)
+    local whenTest_map_score = map(whenTest_predictions, whenTest_dataset.labels, whenTest_dataset.boundary, whenTest_dataset.numrels)
+    local whenTest_mrr_score = mrr(whenTest_predictions, whenTest_dataset.labels, whenTest_dataset.boundary, whenTest_dataset.numrels)
+    printf('-- when test map score: %.4f, mrr score: %.4f\n', whenTest_map_score, whenTest_mrr_score)
 
     local predictions_save_path = string.format(
 	similarityMeasure.predictions_dir .. '/results-%s.%dl.%dd.epoch-%d.%.5f.%d.pred', args.model, args.layers, args.dim, i, test_map_score, id)
