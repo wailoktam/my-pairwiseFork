@@ -133,8 +133,8 @@ local model = model_class{
 }
 
 -- number of epochs to train
-local num_epochs = 20
-
+--local num_epochs = 20
+local num_epochs = 1
 -- print information
 header('model configuration')
 printf('max epochs = %d\n', num_epochs)
