@@ -19,7 +19,7 @@ cand = {'who':'stenn', 'when':'1947-1956', 'where':'fussen'} # targetsに合わ�
 def process(target, targetNum):
     voca = {'unk'} # GloVeを使う場合、unknownトークンを処理するため、unkを初めから入れておきます。
     # また、この変数はpairwiseで使われる辞典を作るために使われます。重複処理のためにsetを使います。
-    shutil.rmtree(target)
+    if not os.path.isdir(target): shutil.rmtree(target)
     os.mkdir(target) # targetの名前でわかるように、targetを名前にした新しいdirectoryを作ります。
 
     for data in dataSet:
