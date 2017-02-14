@@ -8,10 +8,10 @@ import shutil
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-dataSet = ['train', 'dev', 'test'] # pickleされているquestionデータの名前。train/dev/testがおすすめです。
-answer = pickle.load(open('answers')) # pickleされているanswerデータの名前。
-vocaDic = pickle.load(open('voca')) #　pickleされているvoca dictionaryデータの名前。
-revVocaDic = pickle.load(open('revVoca')) # pickleされているreversed voca dictionaryデータの名前。
+dataSet = ['trainG', 'devG', 'testG'] # pickleされているquestionデータの名前。train/dev/testがおすすめです。
+answer = pickle.load(open('answersG')) # pickleされているanswerデータの名前。
+vocaDic = pickle.load(open('wordG')) #　pickleされているvoca dictionaryデータの名前。
+revVocaDic = pickle.load(open('revWordG')) # pickleされているreversed voca dictionaryデータの名前。
 
 targets = ['who', 'when', 'where']
 cand = {'who':'stenn', 'when':'1947-1956', 'where':'fussen'} # targetsに合わせて、自動的に置換する単語を入れてください。
