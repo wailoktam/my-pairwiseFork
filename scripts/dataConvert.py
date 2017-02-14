@@ -8,7 +8,7 @@ import shutil
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-dataSet = ['trainMixg', 'devMixg', 'testMixG'] # pickleされているquestionデータの名前。train/dev/testがおすすめです。
+dataSet = ['trainMixg', 'devMixg', 'testMixg'] # pickleされているquestionデータの名前。train/dev/testがおすすめです。
 answer = pickle.load(open('answersG')) # pickleされているanswerデータの名前。
 vocaDic = pickle.load(open('wordG')) #　pickleされているvoca dictionaryデータの名前。
 revVocaDic = pickle.load(open('revWordG')) # pickleされているreversed voca dictionaryデータの名前。
