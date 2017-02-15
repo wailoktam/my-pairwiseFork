@@ -194,7 +194,8 @@ for i = 1, num_epochs do
     local whenTest_predictions = model:predict_dataset(whenTest_dataset)
     local whenTest_map_score = map(whenTest_predictions, whenTest_dataset.labels, whenTest_dataset.boundary, whenTest_dataset.numrels)
 local whenTest_mrr_score = mrr(whenTest_predictions, whenTest_dataset.labels, whenTest_dataset.boundary, whenTest_dataset.numrels)
-    
+ printf('-- when test map score: %.4f, mrr score: %.4f\n', whenTest_map_score, whenTest_mrr_score)
+ 
     
     printf('-- test map score: %.4f, mrr score: %.4f\n', test_map_score, test_mrr_score)
 
