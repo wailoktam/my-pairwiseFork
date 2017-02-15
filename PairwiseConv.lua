@@ -199,8 +199,8 @@ function PairwiseConv:getTrainingFeatures(indices, dataset)
     local query, doc = dataset.lsents[idx], dataset.rsents[idx]
     local query_vec = self.emb_vecs:index(1, query:long()):double()
     local doc_vec = self.emb_vecs:index(1, doc:long()):double()
-    local feat = self.convModel:forward({query_vec, doc_vec}):clone()
-    features[idx] = feat:clone()
+    local feat = self.convModel:forward({query_vec, doc_vec})
+    features[idx] = feat
   end
   return features
 end
