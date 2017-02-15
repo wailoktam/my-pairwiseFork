@@ -109,9 +109,9 @@ elseif opt.dataset == 'WikiQA' then
   train_dir = data_dir .. 'train/'
   dev_dir = data_dir .. 'dev/'
   test_dir = data_dir .. 'test/'
-  whoTest_dir = data_dir .. opt.version .. '-whoTest/'
-  whenTest_dir = data_dir .. opt.version .. '-whenTest/'  
-  whereTest_dir = data_dir .. opt.version .. '-whereTest/'   
+  whoTest_dir = data_dir .. 'whoTest/'
+  whenTest_dir = data_dir .. 'whenTest/'  
+  whereTest_dir = data_dir .. 'whereTest/'   
 end
 
 local train_dataset = similarityMeasure.read_relatedness_dataset(train_dir, vocab, taskD)
