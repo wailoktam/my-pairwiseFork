@@ -140,7 +140,7 @@ local model = model_class{
 }
 
 -- number of epochs to train
-local num_epochs = 20
+local num_epochs = 1
 
 -- print information
 header('model configuration')
@@ -178,14 +178,6 @@ for i = 1, num_epochs do
 
  -- if dev_map_score >= best_dev_score then
     best_dev_score = dev_map_score
-    local predictions_save_path = string.format(
-	similarityMeasure.predictions_dir .. '/results-%s.%dl.%dd.epoch-%d.%.5f.%d.pred', args.model, args.layers, args.dim, i, test_map_score, id)
-    local predictions_file = torch.DiskFile(predictions_save_path, 'w')
-    print('writing predictions to ' .. predictions_save_path)
-    for i = 1, test_predictions:size(1) do
-      predictions_file:writeFloat(test_predictions[i])
-    end
-    predictions_file:close()
  -- end
 end
 local test_predictions = model:predict_dataset(test_dataset)
@@ -208,5 +200,14 @@ local test_predictions = model:predict_dataset(test_dataset)
 
 
     printf('-- test map score: %.4f, mrr score: %.4f\n', test_map_score, test_mrr_score)
+     local predictions_save_path = string.format(
+             similarityMeasure.predictions_dir .. '/results-%s.%dl.%dd.epoch-%d.%.5f.%d.pred', args.model, args.layers, args.dim, i, test_map_score, id)
+	         local predictions_file = torch.DiskFile(predictions_save_path, 'w')
+		     print('writing predictions to ' .. predictions_save_path)
+		         for i = 1, test_predictions:size(1) do
+			       predictions_file:writeFloat(test_predictions[i])
+			           end
+				       predictions_file:close()
+				       
     
 print('finished training in ' .. (sys.clock() - train_start))
