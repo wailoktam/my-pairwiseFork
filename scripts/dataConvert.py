@@ -14,7 +14,7 @@ vocaDic = pickle.load(open('wordG')) #　pickleされているvoca dictionaryデ
 revVocaDic = pickle.load(open('revWordG')) # pickleされているreversed voca dictionaryデータの名前。
 
 targets = ['who', 'when', 'where']
-cand = {'who':'stenn', 'when':'1947-1956', 'where':'fussen'} # targetsに合わせて、自動的に置換する単語を入れてください。
+cand = {'who':'william', 'when':'1923', 'where':'florida'} # targetsに合わせて、自動的に置換する単語を入れてください。
 
 def process(target, targetNum):
     voca = {'unk'} # GloVeを使う場合、unknownトークンを処理するため、unkを初めから入れておきます。
