@@ -4,7 +4,7 @@ dofile 'CsDis.lua'
 function PairwiseConv:__init(config)
   self.mem_dim       = config.mem_dim       or 150 --200
   self.learning_rate = config.learning_rate or 0.001
-  self.batch_size    = config.batch_size    or 200
+  self.batch_size    = config.batch_size    or 25
   self.num_layers    = config.num_layers    or 1
   self.reg           = config.reg           or 1e-4
   self.structure     = config.structure     or 'lstm' -- {lstm, bilstm}
