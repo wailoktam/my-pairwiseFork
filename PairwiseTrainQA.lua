@@ -182,7 +182,7 @@ for i = 1, num_epochs do
  end
 end
 local test_predictions =  best_dev_model:predict_dataset(test_dataset)
-    local test_map_score =  best_dev_map(test_predictions, test_dataset.labels, test_dataset.boundary, test_dataset.numrels)
+    local test_map_score =  dev_map(test_predictions, test_dataset.labels, test_dataset.boundary, test_dataset.numrels)
         local test_mrr_score = mrr(test_predictions, test_dataset.labels, test_dataset.boundary, test_dataset.numrels)
 	    local whoTest_predictions =  best_dev_model:predict_dataset(whoTest_dataset)
 	        local whoTest_map_score = map(whoTest_predictions, whoTest_dataset.labels, whoTest_dataset.boundary, whoTest_dataset.numrels)
