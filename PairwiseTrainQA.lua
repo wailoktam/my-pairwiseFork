@@ -176,38 +176,31 @@ for i = 1, num_epochs do
  local dev_mrr_score = mrr(dev_predictions, dev_dataset.labels, dev_dataset.boundary, dev_dataset.numrels)
   printf('-- dev map score: %.5f, mrr score: %.5f\n', dev_map_score, dev_mrr_score)
 
- -- if dev_map_score >= best_dev_score then
+ if dev_map_score >= best_dev_score then
     best_dev_score = dev_map_score
- -- end
+    best_dev_model = model
+ end
 end
-local test_predictions = model:predict_dataset(test_dataset)
-    local test_map_score = map(test_predictions, test_dataset.labels, test_dataset.boundary, test_dataset.numrels)
+local test_predictions =  best_dev_model:predict_dataset(test_dataset)
+    local test_map_score =  best_dev_map(test_predictions, test_dataset.labels, test_dataset.boundary, test_dataset.numrels)
         local test_mrr_score = mrr(test_predictions, test_dataset.labels, test_dataset.boundary, test_dataset.numrels)
-	    local whoTest_predictions = model:predict_dataset(whoTest_dataset)
+	    local whoTest_predictions =  best_dev_model:predict_dataset(whoTest_dataset)
 	        local whoTest_map_score = map(whoTest_predictions, whoTest_dataset.labels, whoTest_dataset.boundary, whoTest_dataset.numrels)
 		    local whoTest_mrr_score = mrr(whoTest_predictions, whoTest_dataset.labels, whoTest_dataset.boundary, whoTest_dataset.numrels)
 		        printf('-- who test map score: %.4f, mrr score: %.4f\n', whoTest_map_score, whoTest_mrr_score)
 
-    local whereTest_predictions = model:predict_dataset(whereTest_dataset)
+    local whereTest_predictions =  best_dev_model:predict_dataset(whereTest_dataset)
         local whereTest_map_score = map(whereTest_predictions, whereTest_dataset.labels, whereTest_dataset.boundary, whereTest_dataset.numrels)
 	    local whereTest_mrr_score = mrr(whereTest_predictions, whereTest_dataset.labels, whereTest_dataset.boundary, whereTest_dataset.numrels)
 	        printf('-- where test map score: %.4f, mrr score: %.4f\n', whereTest_map_score, whereTest_mrr_score)
 
-    local whenTest_predictions = model:predict_dataset(whenTest_dataset)
+    local whenTest_predictions =  best_dev_model:predict_dataset(whenTest_dataset)
         local whenTest_map_score = map(whenTest_predictions, whenTest_dataset.labels, whenTest_dataset.boundary, whenTest_dataset.numrels)
 	local whenTest_mrr_score = mrr(whenTest_predictions, whenTest_dataset.labels, whenTest_dataset.boundary, whenTest_dataset.numrels)
 	 printf('-- when test map score: %.4f, mrr score: %.4f\n', whenTest_map_score, whenTest_mrr_score)
 
 
     printf('-- test map score: %.4f, mrr score: %.4f\n', test_map_score, test_mrr_score)
-     local predictions_save_path = string.format(
-             similarityMeasure.predictions_dir .. '/results-%s.%dl.%dd.epoch-%d.%.5f.%d.pred', args.model, args.layers, args.dim, i, test_map_score, id)
-	         local predictions_file = torch.DiskFile(predictions_save_path, 'w')
-		     print('writing predictions to ' .. predictions_save_path)
-		         for i = 1, test_predictions:size(1) do
-			       predictions_file:writeFloat(test_predictions[i])
-			           end
-				       predictions_file:close()
 				       
     
 print('finished training in ' .. (sys.clock() - train_start))
