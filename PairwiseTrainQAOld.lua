@@ -22,8 +22,8 @@ printf = utils.printf
 
 -- global paths (modify if desired)
 similarityMeasure.data_dir        = 'data'
-similarityMeasure.models_dir      = 'trained_models_old'
-similarityMeasure.predictions_dir = 'predictions_old'
+similarityMeasure.models_dir      = 'trained_models_oldW'
+similarityMeasure.predictions_dir = 'predictions_oldW'
 
 function header(s)
   print(string.rep('-', 80))
