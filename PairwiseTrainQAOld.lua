@@ -22,8 +22,8 @@ printf = utils.printf
 
 -- global paths (modify if desired)
 similarityMeasure.data_dir        = 'data'
-similarityMeasure.models_dir      = 'trained_models'
-similarityMeasure.predictions_dir = 'predictions'
+similarityMeasure.models_dir      = 'trained_models_old'
+similarityMeasure.predictions_dir = 'predictions_old'
 
 function header(s)
   print(string.rep('-', 80))
@@ -58,7 +58,7 @@ model_structure = model_name
 torch.manualSeed(-3.0753778015266e+18)
 print('<torch> using the automatic seed: ' .. torch.initialSeed())
 
-if opt.dataset ~= 'TrecQA' and opt.dataset ~= 'WikiQA' then
+if opt.dataset ~= 'TrecQAOld' and opt.dataset ~= 'WikiQAOld' then
   print('Error dataset!')
   os.exit()
 end
@@ -98,11 +98,11 @@ collectgarbage()
 local taskD = 'qa'
 -- load datasets
 print('loading datasets' .. opt.dataset)
-if opt.dataset == 'TrecQA' then
+if opt.dataset == 'TrecQAOld' then
   train_dir = data_dir .. 'train-all/'
   dev_dir = data_dir .. opt.version .. '-dev/'
   test_dir = data_dir .. opt.version .. '-test/'
-elseif opt.dataset == 'WikiQA' then
+elseif opt.dataset == 'WikiQAOld' then
   train_dir = data_dir .. 'train/'
   dev_dir = data_dir .. 'dev/'
   test_dir = data_dir .. 'test/'
@@ -128,7 +128,7 @@ local model = model_class{
 
 -- number of epochs to train
 --local num_epochs = 20
-local num_epochs = 1
+local num_epochs = 20
 
 -- print information
 header('model configuration')
