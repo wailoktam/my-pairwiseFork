@@ -202,5 +202,7 @@ local test_predictions =  best_dev_model:predict_dataset(test_dataset)
 
     printf('-- test map score: %.4f, mrr score: %.4f\n', test_map_score, test_mrr_score)
 				       
-    
 print('finished training in ' .. (sys.clock() - train_start))
+
+-- save best model as local file
+torch.save('MODEL_NAME', best_dev_model) -- put model name
