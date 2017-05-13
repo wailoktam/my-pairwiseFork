@@ -58,7 +58,7 @@ model_structure = model_name
 torch.manualSeed(-3.0753778015266e+18)
 print('<torch> using the automatic seed: ' .. torch.initialSeed())
 
-if opt.dataset ~= 'TrecQA' and opt.dataset ~= 'WikiQA' then
+if opt.dataset ~= 'TrecQA' and opt.dataset ~= 'WikiQAOld' then
   print('Error dataset!')
   os.exit()
 end
@@ -105,7 +105,7 @@ if opt.dataset == 'TrecQA' then
   whoTest_dir = data_dir .. opt.version .. '-whoTest/'
   whenTest_dir = data_dir .. opt.version .. '-whenTest/'  
 whereTest_dir = data_dir .. opt.version .. '-whereTest/'   
-elseif opt.dataset == 'WikiQA' then
+elseif opt.dataset == 'WikiQAOld' then
   train_dir = data_dir .. 'train/'
   dev_dir = data_dir .. 'dev/'
   test_dir = data_dir .. 'test/'
