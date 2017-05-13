@@ -23,7 +23,7 @@ printf = utils.printf
 -- global paths (modify if desired)
 similarityMeasure.data_dir        = 'data'
 similarityMeasure.models_dir      = 'trained_modelsW'
-similarityMeasure.predictions_dir = 'predictionsW'
+similarityMeasure.predictions_dir = 'predictionsWCt'
 
 function header(s)
   print(string.rep('-', 80))
@@ -205,4 +205,4 @@ local test_predictions =  best_dev_model:predict_dataset(test_dataset)
 print('finished training in ' .. (sys.clock() - train_start))
 
 -- save best model as local file
-torch.save('wikiModel', best_dev_model) -- put model name
+torch.save('wikiModelCt', best_dev_model) -- put model name
